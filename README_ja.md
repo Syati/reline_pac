@@ -25,8 +25,11 @@ begin
       config.add_keybind(key, method)
     end
     
-    # 上書きや独自の割り当ても可能
-    # config.add_keybind("\C-r", :fzf_history)
+    # 独自のパッケージ（メソッド）を追加
+    config.add_package(:my_custom_method) do |_key|
+      insert_text("カスタムパッケージからこんにちは!")
+    end
+    config.add_keybind("\C-x", :my_custom_method)
   end 
 rescue LoadError
   # do nothing

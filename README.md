@@ -20,12 +20,16 @@ Call `RelinePac.configure` during IRB/pry startup (e.g., `~/.irbrc`) and bind ke
 begin
   require "reline_pac"
   RelinePac.configure do |config|
+    # Apply default keybinds
     RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
       config.add_keybind(key, method)
     end
     
-    # override or add your own bindings
-    # config.add_keybind("\C-r", :fzf_history)
+    # Add your custom package (method)
+    config.add_package(:my_custom_method) do |_key|
+      insert_text("Hello from custom package!")
+    end
+    config.add_keybind("\C-x", :my_custom_method)
   end
 rescue LoadError
   # do nothing
