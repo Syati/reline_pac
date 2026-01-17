@@ -4,6 +4,10 @@ IRB や pry 向けに、補完・履歴検索・クリップボードを拡張�
 
 [English](README.md) | 日本語
 
+## 必要な環境
+- `fzf` コマンド（`\C-r` による履歴検索に必要）
+- macOS の `pbcopy`/`pbpaste` コマンド（クリップボード操作に必要）
+
 ## インストール
 - RubyGems 公開後: Gemfile に `gem "reline_pac"` を追加します。
 - リポジトリから開発インストール: `bundle exec rake install`。

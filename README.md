@@ -4,6 +4,10 @@ Reline extensions for completion, history search, and clipboard helpers with sim
 
 English | [日本語](README_ja.md)
 
+## Requirements
+- `fzf` command (for history search with `\C-r`)
+- macOS `pbcopy`/`pbpaste` commands (for clipboard operations)
+
 ## Installation
 - After publishing to RubyGems: add `gem "reline_pac"` to your Gemfile.
 - From this repository while developing: `bundle exec rake install`.
