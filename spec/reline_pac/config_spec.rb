@@ -38,7 +38,7 @@ RSpec.describe RelinePac::Config do
       expect(instance.inserted).to eq('custom')
     end
 
-    it 'does not override existing methods' do
+    it 'allows overriding methods with later definitions' do
       config = described_class.new
 
       # Add first package
