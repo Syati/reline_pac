@@ -2,7 +2,9 @@
 
 module RelinePac
   module Packages
+    # Clipboard provides macOS pbcopy/pbpaste integration for Reline.
     module Clipboard
+      # Methods adds clipboard operations to Reline::LineEditor.
       module Methods
         def pbpaste(_key)
           text = `pbpaste`.chomp

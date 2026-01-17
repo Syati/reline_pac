@@ -2,7 +2,9 @@
 
 module RelinePac
   module Packages
+    # Completion provides context-aware completion navigation.
     module Completion
+      # Methods adds completion-aware navigation to Reline::LineEditor.
       module Methods
         def completion_dialog_visible?
           dialog = @dialogs.find { |d| d.name == :autocomplete }

@@ -5,6 +5,7 @@ require_relative 'reline_pac/version'
 require_relative 'reline_pac/packages'
 require_relative 'reline_pac/config'
 
+# RelinePac provides Reline extensions for completion, history search, and clipboard helpers.
 module RelinePac
   class Error < StandardError; end
 

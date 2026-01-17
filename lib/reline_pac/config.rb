@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RelinePac
+  # Config manages Reline keybindings and package installation.
   class Config
     def initialize
       Packages.install_all

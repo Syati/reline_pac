@@ -2,8 +2,11 @@
 
 module RelinePac
   module Packages
+    # History provides fzf-powered history search for Reline.
     module History
+      # Methods adds fzf history search to Reline::LineEditor.
       module Methods
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
         def fzf_history(_key)
           all_history = Reline::HISTORY.to_a
           return if all_history.empty?
@@ -37,6 +40,7 @@ module RelinePac
             $stdout.write line
           end
         end
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
       end
 
       def self.install

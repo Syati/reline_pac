@@ -6,6 +6,7 @@ require_relative 'packages/clipboard'
 require_relative 'packages/history'
 
 module RelinePac
+  # Packages contains all Reline extensions and their default keybindings.
   module Packages
     DEFAULT_KEYBINDS = {
       "\C-y" => :pbpaste,

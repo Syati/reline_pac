@@ -9,15 +9,17 @@ RSpec.describe RelinePac do
 
   describe '.configure' do
     it 'installs packages and delegates keybind to Reline config' do
-      reline_config = instance_double(RelineConfig)
+      reline_config = double('RelineConfig', add_default_key_binding: nil) # rubocop:disable RSpec/VerifiedDoubles
 
-      expect(RelinePac::Packages).to receive(:install_all)
+      allow(RelinePac::Packages).to receive(:install_all)
       allow(Reline).to receive(:send).with(:core).and_return(double(config: reline_config))
-      expect(reline_config).to receive(:add_default_key_binding).with([18], :fzf_history)
 
       described_class.configure do |config|
         config.add_keybind("\C-r", :fzf_history)
       end
+
+      expect(RelinePac::Packages).to have_received(:install_all)
+      expect(reline_config).to have_received(:add_default_key_binding).with([18], :fzf_history)
     end
   end
 end
