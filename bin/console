@@ -8,4 +8,12 @@ require 'reline_pac'
 # with your gem easier. You can also use a different console, if you like.
 
 require 'irb'
+
+RelinePac.configure do |config|
+  # デフォルトを適用
+  RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
+    config.add_keybind(key, method)
+  end
+end
+
 IRB.start(__FILE__)
