@@ -11,7 +11,8 @@ Call `RelinePac.configure` during IRB/pry startup (e.g., `~/.irbrc`) and bind ke
 
 ```ruby
 # ~/.irbrc
-if require "reline_pac" rescue false
+begin
+  require "reline_pac"
   RelinePac.configure do |config|
     RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
       config.add_keybind(key, method)
@@ -20,6 +21,8 @@ if require "reline_pac" rescue false
     # override or add your own bindings
     # config.add_keybind("\C-r", :fzf_history)
   end
+rescue LoadError
+  # do nothing
 end
 ```
 

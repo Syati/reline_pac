@@ -11,7 +11,8 @@ IRB や pry の起動時（例: `~/.irbrc`）に `RelinePac.configure` を呼び
 
 ```ruby
 # ~/.irbrc
-if require "reline_pac" rescue false
+begin
+  require "reline_pac"
   RelinePac.configure do |config|
     # デフォルトを適用
     RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
@@ -20,7 +21,9 @@ if require "reline_pac" rescue false
     
     # 上書きや独自の割り当ても可能
     # config.add_keybind("\C-r", :fzf_history)
-  end
+  end 
+rescue LoadError
+  # do nothing
 end
 ```
 
