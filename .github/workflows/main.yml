@@ -1,4 +1,4 @@
-name: Ruby
+name: CI
 
 on:
   push:
@@ -12,18 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
+      fail-fast: false
       matrix:
-        ruby:
-          - '4.0.1'
+        include:
+          # Test with latest patch versions
+          - ruby: '4.0.1'
+            reline: '~> 0.6.0'
+          - ruby: '3.4'
+            reline: '~> 0.6.0'
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - uses: actions/checkout@v5
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+          bundler-cache: false
+      - name: Install dependencies
+        run: |
+          bundle install --jobs 4 --retry 3
+        env:
+          RAILS_VERSION: ${{ matrix.reline }}
       - name: Run the default task
         run: bundle exec rake
