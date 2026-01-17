@@ -2,6 +2,8 @@
 
 Reline extensions for completion, history search, and clipboard helpers with simple keybind configuration for IRB/pry.
 
+English | [日本語](README_ja.md)
+
 ## Installation
 - After publishing to RubyGems: add `gem "reline_pac"` to your Gemfile.
 - From this repository while developing: `bundle exec rake install`.

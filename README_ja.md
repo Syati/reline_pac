@@ -2,6 +2,8 @@
 
 IRB や pry 向けに、補完・履歴検索・クリップボードを拡張し、キー割り当てを簡単にする小さな Reline 用 gem です。
 
+[English](README.md) | 日本語
+
 ## インストール
 - RubyGems 公開後: Gemfile に `gem "reline_pac"` を追加します。
 - リポジトリから開発インストール: `bundle exec rake install`。
