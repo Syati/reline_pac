@@ -12,14 +12,15 @@ module RelinePac
           filtered = all_history.filter_map do |h|
             stripped = h.strip
             next if stripped.empty? || seen[stripped]
+
             seen[stripped] = true
             h
           end
 
-          display = filtered.map { |h| h.gsub("\n", "⏎") }
+          display = filtered.map { |h| h.gsub("\n", '⏎') }
 
           selected_index = nil
-          ::IO.popen("fzf --tac --reverse --border --query='#{line}' --with-nth=1 --delimiter=$'\\t'", "r+") do |io|
+          ::IO.popen("fzf --tac --reverse --border --query='#{line}' --with-nth=1 --delimiter=$'\\t'", 'r+') do |io|
             display.each_with_index { |d, i| io.puts "#{d}\t#{i}" }
             io.close_write
             result = io.read.strip

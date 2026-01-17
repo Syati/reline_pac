@@ -13,7 +13,7 @@ module RelinePac
           cut_text = line.byteslice(byte_pointer..-1)
           return unless cut_text && !cut_text.empty?
 
-          ::IO.popen("pbcopy", "w") { |io| io.write cut_text }
+          ::IO.popen('pbcopy', 'w') { |io| io.write cut_text }
           delete_text(byte_pointer..-1)
         end
       end

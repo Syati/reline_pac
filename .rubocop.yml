@@ -1,8 +1,29 @@
+plugins:
+  - rubocop-rspec
+  - rubocop-rake
+
 AllCops:
-  TargetRubyVersion: 3.3
+  NewCops: enable
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+Layout/LeadingCommentSpace:
+  Enabled: false
 
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
+# ========= RSpec ===========
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/ExampleLength:
+  Max: 15
+
+# ========= Metrics =========
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Max: 20

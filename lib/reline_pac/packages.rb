@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "reline"
-require_relative "packages/completion"
-require_relative "packages/clipboard"
-require_relative "packages/history"
+require 'reline'
+require_relative 'packages/completion'
+require_relative 'packages/clipboard'
+require_relative 'packages/history'
 
 module RelinePac
   module Packages
