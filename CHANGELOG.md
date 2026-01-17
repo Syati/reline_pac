@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] - 2026-01-17
+
+## What's Changed
+* Enhance console and history.rb: add '-f' flag to ARGV and reverse his… by @Syati in https://github.com/Syati/reline_pac/pull/2
+
+
+**Full Changelog**: https://github.com/Syati/reline_pac/compare/v0.1.1...v0.1.2
+
 ## [0.1.1] - 2026-01-17
 
 ## What's Changed
