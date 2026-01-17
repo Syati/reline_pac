@@ -16,4 +16,5 @@ RelinePac.configure do |config|
   end
 end
 
+ARGV << '-f'
 IRB.start(__FILE__)

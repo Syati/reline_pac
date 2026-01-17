@@ -12,7 +12,7 @@ module RelinePac
           return if all_history.empty?
 
           seen = {}
-          filtered = all_history.filter_map do |h|
+          filtered = all_history.reverse.filter_map do |h|
             stripped = h.strip
             next if stripped.empty? || seen[stripped]
 
@@ -23,7 +23,7 @@ module RelinePac
           display = filtered.map { |h| h.gsub("\n", '⏎') }
 
           selected_index = nil
-          ::IO.popen("fzf --tac --reverse --border --query='#{line}' --with-nth=1 --delimiter=$'\\t'", 'r+') do |io|
+          ::IO.popen("fzf --reverse --border --query='#{line}' --with-nth=1 --delimiter=$'\\t'", 'r+') do |io|
             display.each_with_index { |d, i| io.puts "#{d}\t#{i}" }
             io.close_write
             result = io.read.strip
