@@ -1,6 +1,5 @@
 # RelinePac
 
-
 Reline extensions for completion, history search, and clipboard helpers with simple keybind configuration for IRB/pry.
 
 English | [日本語](README_ja.md)
@@ -10,26 +9,63 @@ English | [日本語](README_ja.md)
 - macOS `pbcopy`/`pbpaste` commands (for clipboard operations)
 
 ## Installation
-- After publishing to RubyGems: add `gem "reline_pac"` to your Gemfile.
-- From this repository while developing: `bundle exec rake install`.
 
-## Usage
-Call `RelinePac.configure` during IRB/pry startup (e.g., `~/.irbrc`) and bind keys to `Reline::LineEditor` methods.
+Install the gem globally (not in your project's Gemfile):
+
+```bash
+gem install reline_pac
+```
+
+Then add the following to your `~/.irbrc`. This works even in Bundler environments (like `rails console`):
 
 ```ruby
-# ~/.irbrc
+# Check if running in a Bundler environment (e.g., rails c)
+if defined?(Bundler)
+  # Temporarily unbundle to get the system gem path
+  reline_pac_gem_path = Bundler.with_unbundled_env do
+    `gem which reline_pac 2> /dev/null`.chomp
+  end
+
+  unless reline_pac_gem_path.empty?
+    lib_dir = File.dirname(reline_pac_gem_path)
+    $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
+  end
+end
+
 begin
-  require "reline_pac"
+  require 'reline_pac'
   RelinePac.configure do |config|
+    # Apply default keybindings
     RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
       config.add_keybind(key, method)
     end
-    
-    # override or add your own bindings
-    # config.add_keybind("\C-r", :fzf_history)
   end
+  # You can override or add custom keybindings
+  # config.add_keybind("\C-r", :fzf_history)
 rescue LoadError
   # do nothing
+end
+```
+
+Alternatively, you can download it directly from GitHub:
+
+```bash
+curl -o ~/.irbrc https://raw.githubusercontent.com/Syati/reline_pac/main/examples/.irbrc
+```
+
+## Usage
+
+Add the setup code from the Installation section to your `~/.irbrc` to enable default keybindings.
+
+### Custom packages
+You can add your own custom methods:
+
+```ruby
+RelinePac.configure do |config|
+  config.add_package(:my_custom_method) do |_key|
+    insert_text("Hello from custom package!")
+  end
+  config.add_keybind("\C-x", :my_custom_method)
 end
 ```
 
