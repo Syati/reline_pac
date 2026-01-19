@@ -11,9 +11,7 @@ module RelinePac
     # @param method_name [Symbol] the method name to add
     # @yield a block that defines the method body; receives _key as first argument
     def add_package(method_name, &block)
-      unless block_given?
-        raise ArgumentError, 'add_package requires a block to define the package method body'
-      end
+      raise ArgumentError, 'add_package requires a block to define the package method body' unless block_given?
 
       Packages::Custom.module_eval do
         define_method(method_name, &block)
