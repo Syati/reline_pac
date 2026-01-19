@@ -56,14 +56,9 @@ RSpec.describe RelinePac::Config do
       expect(line_editor.shared_method(nil)).to eq('second')
     end
 
-    it 'does nothing when no block is given' do
+    it 'raise ArgumentError when no block is given' do
       config = described_class.new
-      initial_ancestors = Reline::LineEditor.ancestors.dup
-
-      config.add_package(:no_block_method)
-
-      # Should not add anything
-      expect(Reline::LineEditor.ancestors.size).to eq(initial_ancestors.size)
+      expect { config.add_package(:no_block_method) }.to raise_error(ArgumentError)
     end
   end
 end
