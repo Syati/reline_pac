@@ -4,6 +4,9 @@ require 'reline'
 require_relative 'reline_pac/version'
 require_relative 'reline_pac/packages'
 require_relative 'reline_pac/config'
+require_relative 'reline_pac/introspection'
+# Load commands only if IRB is available
+require_relative 'reline_pac/irb_commands' if defined?(IRB)
 
 # RelinePac provides Reline extensions for completion, history search, and clipboard helpers.
 module RelinePac
