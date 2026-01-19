@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.0] - 2026-01-19
+
+## What's Changed
+* Add .irbrc example and update README for Bundler compatibility by @Syati in https://github.com/Syati/reline_pac/pull/5
+* Add custom package support to RelinePac configuration by @Syati in https://github.com/Syati/reline_pac/pull/3
+
+
+**Full Changelog**: https://github.com/Syati/reline_pac/compare/v0.1.2...v0.2.0
+
 ## [0.1.2] - 2026-01-17
 
 ## What's Changed
