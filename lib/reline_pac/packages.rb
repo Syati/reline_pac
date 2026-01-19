@@ -4,6 +4,7 @@ require 'reline'
 require_relative 'packages/completion'
 require_relative 'packages/clipboard'
 require_relative 'packages/history'
+require_relative 'packages/custom'
 
 module RelinePac
   # Packages contains all Reline extensions and their default keybindings.

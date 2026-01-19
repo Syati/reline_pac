@@ -16,58 +16,24 @@ gem をグローバルにインストールします（プロジェクトの Gem
 gem install reline_pac
 ```
 
-次に `~/.irbrc` に以下を追加します。Bundler 環境（`rails console` など）でも動作します:
-
-```ruby
-# Check if running in a Bundler environment (e.g., rails c)
-if defined?(Bundler)
-  # Temporarily unbundle to get the system gem path
-  reline_pac_gem_path = Bundler.with_unbundled_env do
-    `gem which reline_pac 2> /dev/null`.chomp
-  end
-
-  unless reline_pac_gem_path.empty?
-    lib_dir = File.dirname(reline_pac_gem_path)
-    $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
-  end
-end
-
-begin
-  require 'reline_pac'
-  RelinePac.configure do |config|
-    # Apply default keybindings
-    RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
-      config.add_keybind(key, method)
-    end
-  end
-  # You can override or add custom keybindings
-  # config.add_keybind("\C-r", :fzf_history)
-rescue LoadError
-  # do nothing
-end
-```
-
-または、GitHub から直接ダウンロードすることもできます:
+次に `~/.irbrc` を設定します:
 
 ```bash
+# サンプル設定をダウンロード
 curl -o ~/.irbrc https://raw.githubusercontent.com/Syati/reline_pac/main/examples/.irbrc
 ```
 
+または、[examples/.irbrc](examples/.irbrc) の内容をコピー＆カスタマイズすることもできます。
+
 ## 使い方
 
-インストールセクションの設定例を `~/.irbrc` に追加すれば、デフォルトのキーバインドが利用できます。
+[examples/.irbrc](examples/.irbrc) のサンプル設定には、3つのオプションが用意されています:
 
-### カスタムパッケージ
-独自のメソッドを追加できます:
+1. **デフォルトのキーバインドを使用**（推奨）: 設定をそのまま使用
+2. **キーバインドをカスタマイズ**: 個別のキーバインドを好みに合わせて変更
+3. **カスタムパッケージを追加**: 独自のメソッドを定義してキーにバインド
 
-```ruby
-RelinePac.configure do |config|
-  config.add_package(:my_custom_method) do |_key|
-    insert_text("Hello from custom package!")
-  end
-  config.add_keybind("\C-x", :my_custom_method)
-end
-```
+詳細とサンプルコードは [examples/.irbrc](examples/.irbrc) を参照してください。
 
 ### デフォルトのキー割り当て
 - `\C-y` -> `:pbpaste`（macOS の `pbpaste` を使用）

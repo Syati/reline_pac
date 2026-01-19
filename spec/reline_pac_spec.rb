@@ -12,7 +12,7 @@ RSpec.describe RelinePac do
       reline_config = double('RelineConfig', add_default_key_binding: nil) # rubocop:disable RSpec/VerifiedDoubles
 
       allow(RelinePac::Packages).to receive(:install_all)
-      allow(Reline).to receive(:send).with(:core).and_return(double(config: reline_config))
+      allow(Reline).to receive(:core).and_return(double(config: reline_config))
 
       described_class.configure do |config|
         config.add_keybind("\C-r", :fzf_history)
