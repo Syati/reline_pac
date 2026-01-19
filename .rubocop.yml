@@ -27,3 +27,8 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   Max: 20
+
+# ======== Style ===========
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'examples/.irbrc'

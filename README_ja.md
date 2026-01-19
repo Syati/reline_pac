@@ -9,30 +9,69 @@ IRB や pry 向けに、補完・履歴検索・クリップボードを拡張�
 - macOS の `pbcopy`/`pbpaste` コマンド（クリップボード操作に必要）
 
 ## インストール
-- RubyGems 公開後: Gemfile に `gem "reline_pac"` を追加します。
-- リポジトリから開発インストール: `bundle exec rake install`。
 
-## 使い方
-IRB や pry の起動時（例: `~/.irbrc`）に `RelinePac.configure` を呼び出し、`Reline::LineEditor` のメソッドへキーを割り当てます。
+gem をグローバルにインストールします（プロジェクトの Gemfile には追加しません）:
+
+```bash
+gem install reline_pac
+```
+
+次に `~/.irbrc` に以下を追加します。Bundler 環境（`rails console` など）でも動作します:
 
 ```ruby
-# ~/.irbrc
+# Check if running in a Bundler environment (e.g., rails c)
+if defined?(Bundler)
+  # Temporarily unbundle to get the system gem path
+  reline_pac_gem_path = Bundler.with_unbundled_env do
+    `gem which reline_pac 2> /dev/null`.chomp
+  end
+
+  unless reline_pac_gem_path.empty?
+    lib_dir = File.dirname(reline_pac_gem_path)
+    $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
+  end
+end
+
 begin
-  require "reline_pac"
+  require 'reline_pac'
   RelinePac.configure do |config|
-    # デフォルトを適用
+    # Apply default keybindings
     RelinePac::Packages::DEFAULT_KEYBINDS.each do |key, method|
       config.add_keybind(key, method)
     end
-    
     # 独自のパッケージ（メソッド）を追加
-    config.add_package(:my_custom_method) do |_key|
-      insert_text("カスタムパッケージからこんにちは!")
-    end
-    config.add_keybind("\C-x", :my_custom_method)
+    # config.add_package(:my_custom_method) do |_key|
+    #  insert_text("Hello from custom package!")
+    # end
+    # config.add_keybind("\C-x", :my_custom_method)
+    
+    # 上書きや独自の割り当ても可能
+    # config.add_keybind("\C-r", :fzf_history)
   end 
 rescue LoadError
   # do nothing
+end
+```
+
+または、GitHub から直接ダウンロードすることもできます:
+
+```bash
+curl -o ~/.irbrc https://raw.githubusercontent.com/Syati/reline_pac/main/examples/.irbrc
+```
+
+## 使い方
+
+インストールセクションの設定例を `~/.irbrc` に追加すれば、デフォルトのキーバインドが利用できます。
+
+### カスタムパッケージ
+独自のメソッドを追加できます:
+
+```ruby
+RelinePac.configure do |config|
+  config.add_package(:my_custom_method) do |_key|
+    insert_text("Hello from custom package!")
+  end
+  config.add_keybind("\C-x", :my_custom_method)
 end
 ```
 
